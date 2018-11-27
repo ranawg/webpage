@@ -1,0 +1,34 @@
+---
+title: "Rana's Web"
+author: "Rana Gahwagy"
+date: "Last updated on `r Sys.Date()`"
+output:
+  html_document:
+    toc: true
+    toc_depth: 2
+    toc_float: true
+    df_print: kable
+---
+
+<!--
+Comments in HTML are like this! 
+-->
+
+
+welcome!
+
+# My first section
+
+```{r}
+library(ggplot2)
+ggplot(mtcars, aes(x=cyl, y= mpg)) +
+  geom_point() +
+  labs(x= "Number of cylinders", y = "Miles per gallon")
+```
+
+
+# My second section
+
+```{r}
+head(mtcars)
+```
