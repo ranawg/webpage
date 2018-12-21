@@ -26,9 +26,7 @@ library(maps)
 library(sf)
 # data loading and wrangling 
 suicide <- read_csv("master.csv") 
-countries <- read_csv("world-country-boundaries.csv")
-#rename vars
-names(countries)[2]<-"country"
+
 
 names(suicide)[7]<-"suicide_per_onek_pop"
 names(suicide)[10]<-"gdp_for_year_dollars"
