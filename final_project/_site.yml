@@ -14,11 +14,11 @@ output:
     self_contained: no
 # All fa icons were obtained from https://fontawesome.com/icons?d=gallery
 navbar:
-  title: "Final Project Title"
+  title: "Suicide: Between Gender and Generations"
   left:
-    - text: "Blogpost"
+    - text: "Gender and Age?"
       href: index.html
-    - text: "More info"
+    - text: "Other Factors"
       href: more_info.html
 #  right:
 #    - icon: fa-slack fa-lg
