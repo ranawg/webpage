@@ -1,0 +1,70 @@
+---
+title: "Suicide: Between Gender and Generations"
+author: " Rana Gahwagy and Jennifer Smith"
+date: "Last updated on `r Sys.Date()`"
+output:
+  html_document:
+    highlight: tango
+    theme: united
+    toc: true
+    toc_depth: 2
+    toc_float: true
+    df_print: kable
+---
+```{r, echo=FALSE, message=FALSE, warning=FALSE}
+# Set R Markdown chunk defaults:
+knitr::opts_chunk$set(
+  echo = FALSE, message = FALSE, warning = FALSE, 
+  fig.width = 16/2, fig.height = 9/2
+)
+```
+```{r}
+# Load all necessary packages
+library(tidyverse)
+library(leaflet)
+library(maps)
+library(sf)
+# data loading and wrangling 
+suicide <- read_csv("master.csv") 
+#rename vars
+names(suicide)[7]<-"suicide_per_onek_pop"
+names(suicide)[10]<-"gdp_for_year_dollars"
+names(suicide)[11]<-"gdp_per_capita_dollars"
+```
+
+# Is There a Pattern to Suicides Worldwide?
+
+Suicide is a sensitive topic, but its prevalence can be tracked by looking at the numbers across both gender and age. **How do gender and generation respectively affect the number of suicides worldwide? **
+
+In the graphic below, split into data taken from the years 2000, 2010, and 2015, is a demonstration of the number of suicides by gender by age-range. Consistently in all three subject years and age-ranges, the number of male suicide victims greatly outnumber the number of female suicide victims. Suicides are most prevalent in middle age, from 35-54, in all three subject years, with the age-range of 55-74 coming into a close second.
+
+<!--
+graph #1 
+-->
+```{r}
+#plot all suicides by age and gender in two differnt years 
+#creat leveles of ages
+type_levels <- c("5-14 years", "15-24 years", "25-34 years", "35-54 years", 
+                 "55-74 years", "75+ years")
+
+suicide_00_15 <- suicide %>% 
+  #add levels 
+  mutate(age = factor(age, levels = type_levels)) %>% 
+  #filter for specific years 
+  filter(year == 2000 | year==2010 | year==2015)%>%
+  #count number of suicides by age for each  year
+  group_by(year,age,sex)%>%
+  summarise(sum=sum(suicides_no))
+
+#plot the data 
+ggplot(suicide_00_15, aes(x= age, y=sum, fill=sex))+
+  geom_col(position = "dodge") +
+  facet_wrap(~year)+
+  coord_flip()+
+  labs(fill= "Gender", x="Number of Suicides", y="Age of Suicide Victim", 
+       title="Number of Worldwide Suicides in 2000, 2010, and 2015 by Age ")
+```
+
+This prevalence of suicide victims in these age ranges display that there’s a problem in how we as a society focus on mental health. Oftentimes with the strict gender roles plaguing society, men are told to compress and hide their emotions, which leads to less men getting the therapeutic and mental health they need in comparison to women. There is a staggering number of suicide victims in their later years, which could be amounted to a number of reasons: the loss of loved ones such as parents or spouses may be detrimental to mental health, the onslaught of societal expectations of success by said ages, and other varying reasons. 
+
+

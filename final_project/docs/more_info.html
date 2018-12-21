@@ -1,0 +1,356 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+
+<meta charset="utf-8" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="generator" content="pandoc" />
+
+
+<meta name="author" content="Guy Incognito" />
+
+
+<title>What Factors We Can Consider?</title>
+
+<script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap-3.3.5/css/united.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<script src="site_libs/jqueryui-1.11.4/jquery-ui.min.js"></script>
+<link href="site_libs/tocify-1.9.1/jquery.tocify.css" rel="stylesheet" />
+<script src="site_libs/tocify-1.9.1/jquery.tocify.js"></script>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+
+
+
+
+<style type="text/css">
+h1 {
+  font-size: 34px;
+}
+h1.title {
+  font-size: 38px;
+}
+h2 {
+  font-size: 30px;
+}
+h3 {
+  font-size: 24px;
+}
+h4 {
+  font-size: 18px;
+}
+h5 {
+  font-size: 16px;
+}
+h6 {
+  font-size: 12px;
+}
+.table th:not([align]) {
+  text-align: left;
+}
+</style>
+
+
+</head>
+
+<body>
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+code {
+  color: inherit;
+  background-color: rgba(0, 0, 0, 0.04);
+}
+img {
+  max-width:100%;
+  height: auto;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+.html-widget {
+  margin-bottom: 20px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+</style>
+
+
+<style type="text/css">
+/* padding for bootstrap navbar */
+body {
+  padding-top: 51px;
+  padding-bottom: 40px;
+}
+/* offset scroll position for anchor links (for fixed navbar)  */
+.section h1 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+
+.section h2 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h3 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h4 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h5 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h6 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+</style>
+
+<script>
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark it active
+  menuAnchor.parent().addClass('active');
+
+  // if it's got a parent navbar menu mark it active as well
+  menuAnchor.closest('li.dropdown').addClass('active');
+});
+</script>
+
+
+<div class="container-fluid main-container">
+
+<!-- tabsets -->
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+</script>
+
+<!-- code folding -->
+
+
+
+
+<script>
+$(document).ready(function ()  {
+
+    // move toc-ignore selectors from section div to header
+    $('div.section.toc-ignore')
+        .removeClass('toc-ignore')
+        .children('h1,h2,h3,h4,h5').addClass('toc-ignore');
+
+    // establish options
+    var options = {
+      selectors: "h1,h2",
+      theme: "bootstrap3",
+      context: '.toc-content',
+      hashGenerator: function (text) {
+        return text.replace(/[.\\/?&!#<>]/g, '').replace(/\s/g, '_').toLowerCase();
+      },
+      ignoreSelector: ".toc-ignore",
+      scrollTo: 0
+    };
+    options.showAndHide = true;
+    options.smoothScroll = true;
+
+    // tocify
+    var toc = $("#TOC").tocify(options).data("toc-tocify");
+});
+</script>
+
+<style type="text/css">
+
+#TOC {
+  margin: 25px 0px 20px 0px;
+}
+@media (max-width: 768px) {
+#TOC {
+  position: relative;
+  width: 100%;
+}
+}
+
+
+.toc-content {
+  padding-left: 30px;
+  padding-right: 40px;
+}
+
+div.main-container {
+  max-width: 1200px;
+}
+
+div.tocify {
+  width: 20%;
+  max-width: 260px;
+  max-height: 85%;
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+  div.tocify {
+    width: 25%;
+  }
+}
+
+@media (max-width: 767px) {
+  div.tocify {
+    width: 100%;
+    max-width: none;
+  }
+}
+
+.tocify ul, .tocify li {
+  line-height: 20px;
+}
+
+.tocify-subheader .tocify-item {
+  font-size: 0.90em;
+  padding-left: 25px;
+  text-indent: 0;
+}
+
+.tocify .list-group-item {
+  border-radius: 0px;
+}
+
+
+</style>
+
+<!-- setup 3col/9col grid for toc_float and main content  -->
+<div class="row-fluid">
+<div class="col-xs-12 col-sm-4 col-md-3">
+<div id="TOC" class="tocify">
+</div>
+</div>
+
+<div class="toc-content col-xs-12 col-sm-8 col-md-9">
+
+
+
+
+<div class="navbar navbar-default  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html">Final Project Title</a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        <li>
+  <a href="index.html">Blogpost</a>
+</li>
+<li>
+  <a href="more_info.html">More info</a>
+</li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<div class="fluid-row" id="header">
+
+
+
+<h1 class="title toc-ignore">What Factors We Can Consider?</h1>
+<h4 class="author"><em>Guy Incognito</em></h4>
+<h4 class="date"><em>Last updated on 2018-12-21</em></h4>
+
+</div>
+
+
+<div id="suicide-gender-and-generation-a-further-look" class="section level1">
+<h1>Suicide, Gender, and Generation: A Further Look</h1>
+<p>Here we try to look at differnt factors that can affect suicides across the world and we try to invistigate if there is a general pattern in both genders. We are suprised by what we found; however, we are left with even more, better questions on weather there are othe factors to consider in order to limit suicides victims. First, look at the the suicides numbers over the years, then we add the factor of the GDP of a country, and at last we take a specific look at the generations those vicitms belong to.</p>
+<p>We also wish to note that we gathered this data from the international World Health Organization (WHO) Mortality Database, which catalogues causes of death over the globe and provided the necessary resources for this project<a href="#fn1" class="footnoteRef" id="fnref1"><sup>1</sup></a>]. In turn WHO gathers their information from national civil registration systems across the globe.<a href="#fn2" class="footnoteRef" id="fnref2"><sup>2</sup></a></p>
+<div id="suicides-rates-throughout-the-years" class="section level2">
+<h2>Suicides Rates Throughout the Years</h2>
+<p>Displayed in the graphs below are the trends of suicides throughout the world, by year and by generation. In the first graph, shown below, until around the 1990s, suicides were at a steady low. However, between a few years prior to 1990 and approximately 2014, the trends of suicides did remain steady from generation to generation. Furthermore, after 2014, there was yet another leap as there had been previously. Female suicides, <strong>in general, stick further to a steady pattern, throughout all generations</strong>, while male suicides do not remain as predictable. There was a massive leap in approximately 1994 for males, specifically those in the age range of 35-54, easily overwhelming even the leap shown with 2014. Young adult males and older adult males, 18-34 and 55-74 respectively, are also variable in their patterns, while with youth and with seniors, the trendline is much steadier over the years.</p>
+<p><img src="more_info_files/figure-html/unnamed-chunk-3-1.png" width="768" /></p>
+</div>
+<div id="gdp-vs-suicides-by-gender" class="section level2">
+<h2>GDP vs Suicides, by Gender</h2>
+<p>When looking at the graph of GDP per Capita versus Suicide Number by Gender, there is a small, but noticeable difference. As the GDP shows to improve, there seems to be a slightly higher prevalence of female suicides, while the inverse is true for males. When the GDP improves, the amounts of male suicides drop down slightly. Men are most likely to commit suicide in times when the GDP is low. Meanwhile, <strong>there seems to be a correlation between the trend of suicide of women as the GDP increases</strong>, regardless of country. This could be due to social causes, such as the prevalence of domestic abuse worldwide: in times of economic growth, abusers may become more confident and lash out. This is only one possible reason why female suicide rates seem to increase in times of economic prosperity.</p>
+<p>Overall, there are high amounts of suicide in areas with low GDPs, all over the globe, while in contrast it seems suicide rates are lower in areas in which the GDP per Capita is higher.</p>
+<p><img src="more_info_files/figure-html/unnamed-chunk-4-1.png" width="768" /></p>
+</div>
+<div id="mean-suicides-by-gender-and-generation" class="section level2">
+<h2>Mean Suicides, by Gender and Generation</h2>
+<p>In the next graph, we analyze the mean amounts of suicides by combining the data from 2000, 2010, and 2015. The scales of the two facets are different, given the much higher occurrence of male suicide across generations. While at first occurence it may seem like women in Generation Z have a higher range across these years, that is not the case due to the changed scale. In women, the range of suicides is most prevalent in the Silent generation, whilst with men, <strong>the widest range occurs with the generation of Baby Boomers</strong>. This could possibly be due to the ill social consequences that come with aging and how that affects one’s self image.</p>
+<p><img src="more_info_files/figure-html/unnamed-chunk-5-1.png" width="768" /></p>
+</div>
+</div>
+<div id="conclusions" class="section level1">
+<h1>Conclusions</h1>
+<p>Overall, it appears that <strong>suicide occurs more often in males than females</strong>, and in those around middle-age, this could be due to the stigma that follows mental health disorders; how especially men internalize unhealthy thoughts; and the stigmas of aging for those that are middle-age.Also, the socioeconomic status of the country may play a role in the number of suicides a country has as a weaker economy may limit people‘s access to mental health services, barring them from gaining the help that they need. Moreover, the generations a person is born in, with all its mishaps, can affect the the culture and in turn the kind of standers people have, and we see that in the raise of the average in the baby boomer genration after the second WOrld War.</p>
+<p>Though this dataset does not take into account the total number of unsuccessful suicide attempts there are worldwide. In further research as to why men greatly outnumber women in suicides, we put more research into the methods of how men and women, respectively, attempted committing suicide. In that retrospect, we found a study from the US National Library of Medicine – National Institutes of Health which detailed how women were more likely to attempt suicide with pharmacological drug abuse and exsanguination, while men were more likely to attempt hanging themselves of asphyxiating themselves.<a href="#fn3" class="footnoteRef" id="fnref3"><sup>3</sup></a> In conclusion, we found that men more often had successful suicide attempts while women were more likely to survive their suicide attempts, as men primarily chose more violent methods as to end their lives. So, we recommend to investigate the role of abuse, domestic violence, and national violence even further.</p>
+</div>
+<div class="footnotes">
+<hr />
+<ol>
+<li id="fn1"><p><a href="http://apps.who.int/healthinfo/statistics/mortality/whodpms/">“WHO Mortality Database.” World Health Organization. World Health Organization, n.d. Web. 20 Dec. 2018.</a><a href="#fnref1">↩</a></p></li>
+<li id="fn2"><p><a href="https://www.kaggle.com/szamil/who-suicide-statistics">“WHO Suicide Statistics.” Szamil. Kaggle, n.d. Web. 2 Dec. 2018.</a>.<a href="#fnref2">↩</a></p></li>
+<li id="fn3"><p><a href="https://www.ncbi.nlm.nih.gov/pmc/articles/PMC3539603/">“Gender differentiation in methods of suicide attempts.”</a> Tsirigotis Konstantinos, Tsirigotis Marta, Gruzczynski Wojciech. NCBI. 1 Aug. 2011. Web. 20 Dec. 2018.<a href="#fnref3">↩</a></p></li>
+</ol>
+</div>
+
+
+
+</div>
+</div>
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.header').parent('thead').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>
